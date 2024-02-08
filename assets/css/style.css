@@ -16081,6 +16081,10 @@ fieldset:disabled .btn {
 .text-justify {
   text-align: start;
 }
+.text-align-justify{
+  text-align: justify;
+  le
+}
 
 .text-decoration-none {
   text-decoration: none !important;
