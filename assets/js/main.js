@@ -24,12 +24,6 @@ Last Update: 9 May 2023
 ====================================
 */
 
-const currentUrl = window.location.href;
-const urlObject = new URL(currentUrl);
-const path = urlObject.pathname + urlObject.hash;
-
-console.log(path);
-
 (function () {
   // 1. AOS initialization
   AOS.init({
@@ -325,10 +319,11 @@ console.log(path);
 // ---------------------custom----------------
 
 document.addEventListener("DOMContentLoaded", function () {
+  fetchDataAndPopulateTable();
   // Simulate a delay (you can replace this with actual loading logic)
   setTimeout(function () {
     hidePreloader();
-  }, 4000); // Adjust the delay time as needed
+  }, 4500); // Adjust the delay time as needed
 });
 
 function hidePreloader() {
@@ -457,3 +452,65 @@ document
       this.textContent = "Play Video";
     }
   });
+
+// coin chart api call
+
+async function fetchDataAndPopulateTable() {
+  const apiKey = config.apiKey;
+  const apiUrl = config.apiUrl;
+  let tbody = document.getElementById("#data-output");
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: new Headers({
+        "content-type": "application/json",
+        "x-api-key": apiKey,
+      }),
+      body: JSON.stringify({
+        currency: "USD",
+        sort: "rank",
+        order: "ascending",
+        offset: 0,
+        limit: 10,
+        meta: false,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Network response was not ok, status code: ${response.status}`
+      );
+    }
+    const data = await response.json();
+    console.log("Data received:", data);
+
+    // Get a reference to the tbody element
+    const tbody = document.querySelector("#data-table tbody");
+
+    // Clear existing rows (optional, depending on your needs)
+    tbody.innerHTML = "";
+
+    // Iterate through the data and create table rows
+    data.forEach((item, index) => {
+      const row = document.createElement("tr");
+
+      // Add data to the row
+      row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${item.code}</td>
+    <td>${item.rate}</td>
+    <td>${item.cap}</td>
+    <td>${item.volume}</td>
+    <td>${item.delta.quarter}</td>
+    <td>${item.delta.hour}</td>
+    <td>${item.delta.day}</td>
+  `;
+
+      // Append the row to the tbody
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error.message);
+  }
+}
