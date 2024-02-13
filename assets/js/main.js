@@ -472,7 +472,7 @@ async function fetchDataAndPopulateTable() {
         sort: "rank",
         order: "ascending",
         offset: 0,
-        limit: 10,
+        limit: 5,
         meta: false,
       }),
     });
@@ -495,16 +495,28 @@ async function fetchDataAndPopulateTable() {
     data.forEach((item, index) => {
       const row = document.createElement("tr");
 
+      const capFormatted = formatNumber(item.cap);
+      const rateFormatted = formatNumber(item.rate);
+      const volumeFormatted = formatNumber(item.volume);
+
+      // Calculate percentage change for day and hour
+      const percentageChangeDay = ((item.delta.day - 1) * 100).toFixed(2);
+      const percentageChangeHour = ((item.delta.hour - 1) * 100).toFixed(2);
+
+      // Determine color based on percentage change
+      const colorDay = percentageChangeDay < 0 ? "red" : "green";
+      const colorHour = percentageChangeHour < 0 ? "red" : "green";
+
       // Add data to the row
       row.innerHTML = `
     <td>${index + 1}</td>
     <td>${item.code}</td>
-    <td>${item.rate}</td>
-    <td>${item.cap}</td>
-    <td>${item.volume}</td>
-    <td>${item.delta.quarter}</td>
-    <td>${item.delta.hour}</td>
-    <td>${item.delta.day}</td>
+    <td>$${rateFormatted}</td>
+    <td>$${capFormatted}</td>
+    <td>$${volumeFormatted}</td>
+    <td>$${item.delta.quarter}</td>
+    <td style="color: ${colorDay}">${percentageChangeHour}%</td>
+    <td style="color: ${colorHour}">${percentageChangeDay}%</td>
   `;
 
       // Append the row to the tbody
@@ -512,5 +524,15 @@ async function fetchDataAndPopulateTable() {
     });
   } catch (error) {
     console.error("Error fetching data:", error.message);
+  }
+}
+
+function formatNumber(number) {
+  if (number >= 1e9) {
+    return (number / 1e9).toFixed(2) + " B";
+  } else if (number >= 1e6) {
+    return (number / 1e6).toFixed(2) + " M";
+  } else {
+    return number.toFixed(2);
   }
 }

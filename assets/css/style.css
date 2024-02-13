@@ -466,6 +466,38 @@ table {
   caption-side: bottom;
   border-collapse: collapse;
 }
+.live-rate-container{
+  padding-left: 10%;
+}
+
+/* coin price table */
+.table-container {
+  width: 85%;
+  overflow-x: auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #171825; /* or 'scroll' */
+}
+.coin-price-table {
+  width: 100%;
+}
+.coin-price-table th{
+ padding: 15px;
+    text-align: right;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1fb3cf;
+}
+.coin-price-table td {
+  /* border: 1px solid #ddd; */
+  padding: 15px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: 500;
+}
+.coin-price-table tr{
+  border-bottom: 1px solid;
+}
 
 caption {
   padding-top: 0.5rem;
@@ -16081,7 +16113,7 @@ fieldset:disabled .btn {
 .text-justify {
   text-align: start;
 }
-.text-align-justify{
+.text-align-justify {
   text-align: justify;
 }
 
@@ -36905,10 +36937,10 @@ button {
 }
 @media screen and (max-width: 300px) {
   .get-btn {
-  max-width: 160px;
-  text-align: center;
-  padding: 10px;
-  font-size: 1rem;
-  font-weight: 500;
-}
+    max-width: 160px;
+    text-align: center;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
