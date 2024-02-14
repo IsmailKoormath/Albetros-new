@@ -472,7 +472,7 @@ async function fetchDataAndPopulateTable() {
         sort: "rank",
         order: "ascending",
         offset: 0,
-        limit: 5,
+        limit: 15,
         meta: false,
       }),
     });
