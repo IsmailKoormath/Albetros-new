@@ -472,10 +472,12 @@ table {
   overflow-y:scroll;
 
 }
-
+.live-rate-container::-webkit-scrollbar { 
+    display: none; 
+}
 /* coin price table */
 .table-container {
-  width: 90%;
+  width: 85%;
   overflow-x: auto;
   padding: 20px;
   border-radius: 10px;
@@ -490,13 +492,15 @@ table {
     font-size: 20px;
     font-weight: 600;
     color: #1fb3cf;
+    white-space: 'nowrap'
 }
 .coin-price-table td {
-  /* border: 1px solid #ddd; */
   padding: 15px;
   text-align: right;
   font-size: 18px;
   font-weight: 500;
+    white-space: 'nowrap'
+
 }
 .coin-price-table tr{
   border-bottom: 1px solid;
@@ -515,6 +519,7 @@ table {
 .coin-price-table th{
  padding: 8px;
     font-size: 14px;
+    white-space: nowrap;
 }
 .live-rate-container{
   padding-left: 4%;
@@ -522,6 +527,8 @@ table {
 .coin-price-table td {
   padding: 8px;
   font-size: 14px;
+    white-space: nowrap;
+
 }
 .table-container {
   width: 95%;

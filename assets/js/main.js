@@ -514,7 +514,7 @@ async function fetchDataAndPopulateTable() {
     <td>$${rateFormatted}</td>
     <td>$${capFormatted}</td>
     <td>$${volumeFormatted}</td>
-    <td>$${item.delta.quarter}</td>
+    
     <td style="color: ${colorDay}">${percentageChangeHour}%</td>
     <td style="color: ${colorHour}">${percentageChangeDay}%</td>
   `;
