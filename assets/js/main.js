@@ -483,7 +483,7 @@ async function fetchDataAndPopulateTable() {
       );
     }
     const data = await response.json();
-    console.log("Data received:", data);
+    // console.log("Data received:", data);
 
     // Get a reference to the tbody element
     const tbody = document.querySelector("#data-table tbody");
@@ -514,7 +514,6 @@ async function fetchDataAndPopulateTable() {
     <td>$${rateFormatted}</td>
     <td>$${capFormatted}</td>
     <td>$${volumeFormatted}</td>
-    
     <td style="color: ${colorDay}">${percentageChangeHour}%</td>
     <td style="color: ${colorHour}">${percentageChangeDay}%</td>
   `;

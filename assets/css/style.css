@@ -472,12 +472,23 @@ table {
   overflow-y:scroll;
 
 }
-.live-rate-container::-webkit-scrollbar { 
-    display: none; 
+ .live-rate-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.live-rate-container::-webkit-scrollbar-track {
+  background:  transparent; 
+}
+ 
+/* Handle */
+.live-rate-container::-webkit-scrollbar-thumb {
+  background: #e9f96e ; 
+  border-radius: 10px;
 }
 /* coin price table */
 .table-container {
-  width: 85%;
+  width: 100%;
   overflow-x: auto;
   padding: 20px;
   border-radius: 10px;
@@ -531,7 +542,7 @@ table {
 
 }
 .table-container {
-  width: 95%;
+  width: 100%;
   overflow-x: auto;
   padding: 20px;
   border-radius: 10px;
