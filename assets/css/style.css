@@ -36681,6 +36681,10 @@ article ol {
 article img {
   margin-bottom: 2rem;
 }
+.article_description{
+    font-weight: 600;
+    font-size: 17px;
+}
 
 .pagination .page-link {
   width: 40px;

@@ -458,7 +458,7 @@ document
 async function fetchDataAndPopulateTable() {
   const apiKey = config.apiKey;
   const apiUrl = config.apiUrl;
-  let tbody = document.getElementById("#data-output");
+  // let tbody = document.getElementById("#data-output");
 
   try {
     const response = await fetch(apiUrl, {
