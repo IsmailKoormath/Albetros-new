@@ -320,10 +320,16 @@ Last Update: 9 May 2023
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchDataAndPopulateTable();
+
+  // Call the function to load blogs
+  loadBlogs();
   // Simulate a delay (you can replace this with actual loading logic)
   setTimeout(function () {
     hidePreloader();
   }, 4500); // Adjust the delay time as needed
+
+  // Fetch and populate single blog
+  loadSingleBlog();
 });
 
 function hidePreloader() {
@@ -533,5 +539,104 @@ function formatNumber(number) {
     return (number / 1e6).toFixed(2) + " M";
   } else {
     return number.toFixed(2);
+  }
+}
+
+// Function to fetch and populate blogs
+async function loadBlogs() {
+  const blogContainer = document.getElementById("blogmain");
+  const swiperWrapper = blogContainer.querySelector(".swiper-wrapper");
+
+  const blogApiEndpoint = "http://localhost:8080/api/admin/view-blogs";
+  try {
+    const response = await fetch(blogApiEndpoint);
+    const blogs = await response.json();
+    console.log(blogs);
+    blogs?.blogData.forEach((blog) => {
+      console.log(`http://localhost:8080/uploads/${blog.blogImage}`);
+      const blogCard = document.createElement("div");
+      blogCard.classList.add("swiper-slide", "h-auto", "text-center");
+      blogCard.innerHTML = `
+                    <div class="review-card rounded p-6 border bg-dark-blue-3 border-white border-opacity-10 text-center" style="height: 540px; overflow: hidden;text-overflow: ellipsis;">
+                        <div class="d-flex items-center gap-4 mb-6 text-center">
+                            <div class="card-header border-0 bg-transparent ratio ratio-6x4 rounded overflow-hidden">
+                                <a href="article.html?id=${blog._id}" class="d-block">
+                                    <img src="http://localhost:8080/uploads/${blog.blogImage}" alt="${blog.title}" class="img-fluid post-thumbnail w-full h-full object-cover" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="stars d-flex items-center gap-1 mb-3">
+                                <p>${blog.title}</p>
+                            </div>
+                            <p class="review-text mb-0" style="overflow: hidden;height: 125px; text-overflow: ellipsis;">
+                                ${blog.description}<br>
+                            </p>
+                                <a href="article.html?id=${blog._id}">Read more</a>
+
+                        </div>
+                    </div>
+                `;
+
+      swiperWrapper.appendChild(blogCard);
+    });
+
+    // Initialize the Swiper instance
+    new Swiper(".swiper-container", {
+      // Add your Swiper configuration here
+    });
+  } catch (error) {
+    console.error("Error fetching blog data:", error);
+  }
+}
+
+//get single blog 
+
+// Function to fetch and populate single blog
+async function loadSingleBlog() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const blogId = urlParams.get("id");
+
+  try {
+    const response = await fetch(
+      `http://localhost:8080/api/admin/view-single-blog/${blogId}`
+    );
+    const data = await response.json();
+    console.log(data);
+
+    // Update title and description
+    document.getElementById("article_title").innerText = data.blogData.title;
+    document.getElementById("article_description").innerText =
+      data.blogData.description;
+
+    // Update image
+    const articleImage = document.getElementById("artice_img");
+    articleImage.src = `http://localhost:8080/uploads/${data.blogData.blogImage}`;
+    articleImage.alt = data.title;
+    // Update sections
+    const sectionsContainer = document.getElementById("sections-container");
+    sectionsContainer.innerHTML = ""; // Clear existing content
+
+    data?.blogData?.sections.forEach((section, index) => {
+      const sectionTitleId = `section${index + 1}_title`;
+      const sectionDescriptionId = `section${index + 1}_description`;
+
+      // Create and append elements dynamically
+      const sectionTitle = document.createElement("h4");
+      sectionTitle.id = sectionTitleId;
+      sectionTitle.innerText = section.title;
+
+      const sectionDescription = document.createElement("p");
+      sectionDescription.id = sectionDescriptionId;
+      sectionDescription.innerText = section.description;
+
+      // Append elements to sectionsContainer
+      sectionsContainer.appendChild(sectionTitle);
+      sectionsContainer.appendChild(sectionDescription);
+    });
+
+    // Update more elements as needed
+  } catch (error) {
+    console.error("Error fetching single blog data:", error);
   }
 }
