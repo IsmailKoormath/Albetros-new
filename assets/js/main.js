@@ -624,11 +624,11 @@ async function loadSingleBlog() {
       // Create and append elements dynamically
       const sectionTitle = document.createElement("h4");
       sectionTitle.id = sectionTitleId;
-      sectionTitle.innerText = section.title;
+      sectionTitle.innerText = section.subtitle;
 
       const sectionDescription = document.createElement("p");
       sectionDescription.id = sectionDescriptionId;
-      sectionDescription.innerText = section.description;
+      sectionDescription.innerText = section.subdescription;
 
       // Append elements to sectionsContainer
       sectionsContainer.appendChild(sectionTitle);
