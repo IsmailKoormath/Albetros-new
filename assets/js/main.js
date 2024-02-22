@@ -330,6 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Fetch and populate single blog
   loadSingleBlog();
+  fetchDataFromApi();
 });
 
 function hidePreloader() {
@@ -590,7 +591,7 @@ async function loadBlogs() {
   }
 }
 
-//get single blog 
+//get single blog
 
 // Function to fetch and populate single blog
 async function loadSingleBlog() {
@@ -639,4 +640,33 @@ async function loadSingleBlog() {
   } catch (error) {
     console.error("Error fetching single blog data:", error);
   }
+}
+
+//------- get seo title keywords and descriptions------
+
+// Function to dynamically change title, meta description, and keywords
+function changeMetaTags(newTitle, newDescription, newKeywords) {
+  document.title = newTitle;
+  document.getElementById("pageTitle").innerText = newTitle;
+  document
+    .getElementById("metaDescription")
+    .setAttribute("content", newDescription);
+  document.getElementById("metaKeywords").setAttribute("content", newKeywords);
+}
+
+function fetchDataFromApi() {
+  fetch("http://localhost:8080/api/admin/view-seo")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const newTitle = data?.seoData?.[0]?.title;
+      const newDescription = data?.seoData?.[0]?.description;
+      const newKeywords = data?.seoData?.[0]?.keyWords;
+        "AI, content writing, copywriting, HTML5, Bootstrap 5, Marvel Theme";
+
+      changeMetaTags(newTitle, newDescription, newKeywords);
+    })
+    .catch((error) => {
+      console.error("Error fetching data from API:", error);
+    });
 }
