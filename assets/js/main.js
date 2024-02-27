@@ -491,7 +491,6 @@ async function fetchDataAndPopulateTable() {
     }
     const data = await response.json();
     // console.log("Data received:", data);
-
     // Get a reference to the tbody element
     const tbody = document.querySelector("#data-table tbody");
 
@@ -548,13 +547,13 @@ async function loadBlogs() {
   const blogContainer = document.getElementById("blogmain");
   const swiperWrapper = blogContainer.querySelector(".swiper-wrapper");
 
-  const blogApiEndpoint = "http://localhost:8080/api/admin/view-blogs";
+  const blogApiEndpoint = "https://app.albetros.com/api/admin/view-blogs";
   try {
     const response = await fetch(blogApiEndpoint);
     const blogs = await response.json();
     console.log(blogs);
     blogs?.blogData.forEach((blog) => {
-      console.log(`http://localhost:8080/uploads/${blog.blogImage}`);
+      console.log(`https://app.albetros.com/uploads/${blog.blogImage}`);
       const blogCard = document.createElement("div");
       blogCard.classList.add("swiper-slide", "h-auto", "text-center");
       blogCard.innerHTML = `
@@ -562,7 +561,7 @@ async function loadBlogs() {
                         <div class="d-flex items-center gap-4 mb-6 text-center">
                             <div class="card-header border-0 bg-transparent ratio ratio-6x4 rounded overflow-hidden">
                                 <a href="article.html?id=${blog._id}" class="d-block">
-                                    <img src="http://localhost:8080/uploads/${blog.blogImage}" alt="${blog.title}" class="img-fluid post-thumbnail w-full h-full object-cover" />
+                                    <img src="https://app.albetros.com/uploads/${blog.blogImage}" alt="${blog.title}" class="img-fluid post-thumbnail w-full h-full object-cover" />
                                 </a>
                             </div>
                         </div>
@@ -600,7 +599,7 @@ async function loadSingleBlog() {
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/admin/view-single-blog/${blogId}`
+      `https://app.albetros.com/api/admin/view-single-blog/${blogId}`
     );
     const data = await response.json();
     console.log(data);
@@ -612,7 +611,7 @@ async function loadSingleBlog() {
 
     // Update image
     const articleImage = document.getElementById("artice_img");
-    articleImage.src = `http://localhost:8080/uploads/${data.blogData.blogImage}`;
+    articleImage.src = `https://app.albetros.com/uploads/${data.blogData.blogImage}`;
     articleImage.alt = data.title;
     // Update sections
     const sectionsContainer = document.getElementById("sections-container");
@@ -641,32 +640,102 @@ async function loadSingleBlog() {
     console.error("Error fetching single blog data:", error);
   }
 }
-
-//------- get seo title keywords and descriptions------
-
-// Function to dynamically change title, meta description, and keywords
-function changeMetaTags(newTitle, newDescription, newKeywords) {
-  document.title = newTitle;
-  document.getElementById("pageTitle").innerText = newTitle;
-  document
-    .getElementById("metaDescription")
-    .setAttribute("content", newDescription);
+// -- get seo keyword ----
+function changeKeyword(newKeywords) {
   document.getElementById("metaKeywords").setAttribute("content", newKeywords);
 }
 
-function fetchDataFromApi() {
-  fetch("http://localhost:8080/api/admin/view-seo")
+function fetchSeoKeywordApi() {
+  fetch("https://app.albetros.com/api/admin/view-keywords")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      const newTitle = data?.seoData?.[0]?.title;
-      const newDescription = data?.seoData?.[0]?.description;
       const newKeywords = data?.seoData?.[0]?.keyWords;
-        "AI, content writing, copywriting, HTML5, Bootstrap 5, Marvel Theme";
-
-      changeMetaTags(newTitle, newDescription, newKeywords);
+      changeKeyword(newKeywords);
     })
     .catch((error) => {
       console.error("Error fetching data from API:", error);
     });
 }
+
+//------- get seo title and descriptions------
+
+function changeMetaTags(
+  newTitle,
+  newDescription,
+  aboutTitle,
+  aboutDescription,
+  blogTitle,
+  blogDescription,
+  articleTitle,
+  articleDescription,
+  serviceTitle,
+  serviceDescription,
+  signupTitle,
+  signupDescription
+) {
+  // document.title = newTitle;
+  document.getElementById("pageTitle").innerText = newTitle;
+  document
+    .getElementById("metaDescription")
+    .setAttribute("content", newDescription);
+
+  document.getElementById("aboutTitle").innerText = aboutTitle;
+  document
+    .getElementById("aboutDescription")
+    .setAttribute("content", aboutDescription);
+  document.getElementById("blogTitle").innerText = blogTitle;
+  document
+    .getElementById("blogDescription")
+    .setAttribute("content", blogDescription);
+  document.getElementById("articleTitle").innerText = articleTitle;
+  document
+    .getElementById("articleDescription")
+    .setAttribute("content", articleDescription);
+  document.getElementById("serviceTitle").innerText = serviceTitle;
+  document
+    .getElementById("serviceDescription")
+    .setAttribute("content", serviceDescription);
+  document.getElementById("signupTitle").innerText = signupTitle;
+  document
+    .getElementById("signupDescription")
+    .setAttribute("content", signupDescription);
+}
+
+function fetchDataFromApi() {
+  fetch("https://app.albetros.com/api/admin/view-seo")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      const newTitle = data?.seoData?.[0]?.title;
+      const newDescription = data?.seoData?.[0]?.description;
+      const aboutTitle = data?.seoData?.[1]?.title;
+      const aboutDescription = data?.seoData?.[1]?.description;
+      const blogTitle = data?.seoData?.[2]?.title;
+      const blogDescription = data?.seoData?.[2]?.description;
+      const articleTitle = data?.seoData?.[3]?.title;
+      const articleDescription = data?.seoData?.[3]?.description;
+      const serviceTitle = data?.seoData?.[4]?.title;
+      const serviceDescription = data?.seoData?.[4]?.description;
+      const signupTitle = data?.seoData?.[5]?.title;
+      const signupDescription = data?.seoData?.[5]?.description;
+      changeMetaTags(
+        newTitle,
+        newDescription,
+        aboutTitle,
+        aboutDescription,
+        blogTitle,
+        blogDescription,
+        articleTitle,
+        articleDescription,
+        serviceTitle,
+        serviceDescription,
+        signupTitle,
+        signupDescription
+      );
+    })
+    .catch((error) => {
+      console.error("Error fetching data from API:", error);
+    });
+}
+// ----------
