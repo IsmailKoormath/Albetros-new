@@ -466,13 +466,12 @@ table {
   caption-side: bottom;
   border-collapse: collapse;
 }
-.live-rate-container{
+.live-rate-container {
   padding-left: 10%;
   max-height: 370px;
   /* overflow-y:scroll; */
-
 }
- /* .live-rate-container::-webkit-scrollbar {
+/* .live-rate-container::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -486,18 +485,18 @@ table {
   background: #e9f96e ; 
   border-radius: 10px;
 }  */
- .table-container::-webkit-scrollbar {
+.table-container::-webkit-scrollbar {
   width: 8px;
 }
 
 /* Track */
 .table-container::-webkit-scrollbar-track {
-  background:  transparent; 
+  background: transparent;
 }
- 
+
 /* Handle */
 .table-container::-webkit-scrollbar-thumb {
-  background: #e9f96e ; 
+  background: #e9f96e;
   border-radius: 2px;
 }
 /* coin price table */
@@ -512,57 +511,55 @@ table {
 .coin-price-table {
   width: 100%;
 }
-.coin-price-table th{
- padding: 15px;
-    text-align: right;
-    font-size: 20px;
-    font-weight: 600;
-    color: #1fb3cf;
-    white-space: 'nowrap'
+.coin-price-table th {
+  padding: 15px;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1fb3cf;
+  white-space: "nowrap";
 }
 .coin-price-table td {
   padding: 15px;
   text-align: right;
   font-size: 18px;
   font-weight: 500;
-    white-space: 'nowrap'
-
+  white-space: "nowrap";
 }
-.coin-price-table tr{
+.coin-price-table tr {
   border-bottom: 1px solid;
 }
 @media (max-width: 980px) {
-.coin-price-table th{
- padding: 10px;
+  .coin-price-table th {
+    padding: 10px;
     font-size: 15px;
-}
-.coin-price-table td {
-  padding: 10px;
-  font-size: 15px;
-}
+  }
+  .coin-price-table td {
+    padding: 10px;
+    font-size: 15px;
+  }
 }
 @media (max-width: 750px) {
-.coin-price-table th{
- padding: 8px;
+  .coin-price-table th {
+    padding: 8px;
     font-size: 14px;
     white-space: nowrap;
-}
-.live-rate-container{
-  padding-left: 4%;
-}
-.coin-price-table td {
-  padding: 8px;
-  font-size: 14px;
+  }
+  .live-rate-container {
+    padding-left: 4%;
+  }
+  .coin-price-table td {
+    padding: 8px;
+    font-size: 14px;
     white-space: nowrap;
-
-}
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #171825; /* or 'scroll' */
-}
+  }
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #171825; /* or 'scroll' */
+  }
 }
 
 caption {
@@ -36696,9 +36693,9 @@ article ol {
 article img {
   margin-bottom: 2rem;
 }
-.article_description{
-    font-weight: 600;
-    font-size: 17px;
+.article_description {
+  font-weight: 600;
+  font-size: 17px;
 }
 
 .pagination .page-link {
@@ -37013,4 +37010,53 @@ button {
     font-size: 1rem;
     font-weight: 500;
   }
+}
+
+/* Ad modal */
+
+#myModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  background-color:#1e7282;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  z-index: 999;
+
+}
+/* .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+} */
+#myModal .crossIcon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+#notificationImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* end Ad modal */
+@media screen and (max-width: 500px) {
+#myModal {
+ 
+  width: 280px;
+  height: 280px;
+
+}
+#myModal .crossIcon {
+ 
+  font-size: 20px;
+
+}
 }

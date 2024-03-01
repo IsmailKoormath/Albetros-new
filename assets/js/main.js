@@ -320,13 +320,14 @@ Last Update: 9 May 2023
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchDataAndPopulateTable();
-
   // Call the function to load blogs
   loadBlogs();
   // Simulate a delay (you can replace this with actual loading logic)
   setTimeout(function () {
     hidePreloader();
   }, 4500); // Adjust the delay time as needed
+
+  fetchAdModalData();
 
   // Fetch and populate single blog
   loadSingleBlog();
@@ -739,3 +740,34 @@ function fetchDataFromApi() {
     });
 }
 // ----------
+
+//-------- Ad modal-------------
+
+function openModal(imageUrl) {
+const modal = document.getElementById("myModal").style.display="flex";
+
+  const notificationImg = document.getElementById("notificationImg");
+  notificationImg.src = `http://localhost:6005/uploads/${imageUrl}`;
+}
+
+function closeModal() {
+const modal = (document.getElementById("myModal").style.display = "none");
+}
+
+function fetchAdModalData() {
+  fetch("http://localhost:6005/api/admin/view-adv-image")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.advImage);
+      if (data.advImage !== null) {
+        openModal(data.advImage);
+      } else {
+        console.log("advImage is null");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching data from API:", error);
+    });
+}
+
+
