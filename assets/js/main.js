@@ -747,7 +747,7 @@ function openModal(imageUrl) {
 const modal = document.getElementById("myModal").style.display="flex";
 
   const notificationImg = document.getElementById("notificationImg");
-  notificationImg.src = `http://localhost:6005/uploads/${imageUrl}`;
+  notificationImg.src = `https://app.albetros.com/uploads/${imageUrl}`;
 }
 
 function closeModal() {
@@ -755,7 +755,7 @@ const modal = (document.getElementById("myModal").style.display = "none");
 }
 
 function fetchAdModalData() {
-  fetch("http://localhost:6005/api/admin/view-adv-image")
+  fetch("https://app.albetros.com/api/admin/view-adv-image")
     .then((response) => response.json())
     .then((data) => {
       console.log(data.advImage);
